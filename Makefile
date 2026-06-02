@@ -1,10 +1,13 @@
 postgres:
-	docker run --name docker-db-1 -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres
-
+	docker run --name postgres18 -p 5433:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:18-alpine 
 createdb:
-	docker exec -it docker-db-1 createdb --username=postgres --owner=postgres simple_bank
+	docker exec -it postgres18 createdb --username=root --owner=root simple_bank
 
 dropdb:
-	docker exec -it docker-db-1 dropdb simple_banki
+	docker exec -it postgres18 dropdb simple_bank
+migrateup:
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5433/simple_bank?sslmode=disable" -verbose up
+migratedown:
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5433/simple_bank?sslmode=disable" -verbose down
 
 .PHONY: postgres createdb dropdb
