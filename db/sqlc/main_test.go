@@ -7,11 +7,9 @@ import (
 	"testing"
 
 	"github.com/jackc/pgx/v5"
-	_ "github.com/jackc/pgx/v5"
 )
 
 const (
-	dbDriver = "postgres"
 	dbSource = "postgresql://root:secret@localhost:5433/simple_bank?sslmode=disable"
 )
 
