@@ -37,5 +37,8 @@ jobs:
           go-version-file: go.mod
         id: go
 
+      - name: Run migrations
+        run: make migrateup
+
       - name: Test
         run: make test
